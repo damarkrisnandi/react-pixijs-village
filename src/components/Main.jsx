@@ -95,10 +95,8 @@ class Main extends React.Component {
         }
 
         if (this.pixi.checkAllCollision(move, this.player, this.villageMapBlock)) {
-            for (let i = 0; i < this.unit * 10000; i++) {
-                this.villageMapBlock.x -= (move.x) / (10000 * 2)
-                this.villageMapBlock.y -= (move.y) / (10000 * 2)
-            }   
+            this.villageMapBlock.x -= (move.x) * this.unit;
+            this.villageMapBlock.y -= (move.y) * this.unit;
         }
     }
 
