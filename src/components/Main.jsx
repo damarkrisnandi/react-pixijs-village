@@ -43,7 +43,8 @@ class Main extends React.Component {
     keyDown = (e) => {
         this.isTriggerKey = true;
         this.timeTrigger = new Date();
-        this.key = e.key;    
+        const controls = new Controls();
+        if (Object.values(controls).includes(e.key)) this.key = e.key;    
     }
 
     keyUp = (e) => {
