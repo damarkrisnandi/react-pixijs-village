@@ -23,16 +23,8 @@ export function blockBuilder(url, unit, source, destination) {
                 const spr1Child = new PIXI.Sprite(texture1Child);
                 spr1Child.x = (destination.x + child.nowx - 2) * unit;
                 spr1Child.y = (destination.y + child.nowy - 2) * unit;
-                // sprites.push(spr1)
                 container.addChild(spr1Child);
             }
-            // const animSprite = animator(position. filenames, {
-            //     x: (destination.x + position.nowx - 2) * unit,
-            //     y: (destination.y + position.nowy - 2) * unit,
-            // } );
-            // position.animation.x = (destination.x + position.nowx - 2) * unit;
-            // position.animation.y = (destination.y + position.nowy - 2) * unit;
-            // container.addChild(position.animation);
         }
         
     }

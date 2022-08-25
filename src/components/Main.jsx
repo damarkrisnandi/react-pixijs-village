@@ -101,9 +101,6 @@ class Main extends React.Component {
         }
     }
 
-    checkAllCollision = (dir) => {
-        return true;
-    }
 
     updateCanvas = () => {
         // update setiap ada perubahan dalam game

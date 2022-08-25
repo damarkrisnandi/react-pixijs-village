@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import GroupObject from './group-object';
 import VillageMap from './villagemap';
 
 export default class Provider {
@@ -26,5 +25,4 @@ export default class Provider {
         y: Math.floor((window.innerHeight / 2) / this.unit) + 1 - Math.floor(this.villageMap.mapSize.y / 2)
     };
     
-    groupObject = new GroupObject();
 }

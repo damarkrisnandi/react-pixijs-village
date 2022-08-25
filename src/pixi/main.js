@@ -12,8 +12,6 @@ export default class PixiMain extends Provider {
     }
 
     createMap() {
-        this.villageMap.init();
-
         const libraryScene = new LibraryScene();
         libraryScene.createMap();
 
