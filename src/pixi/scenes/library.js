@@ -14,12 +14,11 @@ export default class LibraryScene extends Provider{
     }
 
     placeObject() {
-        const bookShelf1Container = this.createObjectContainer(bookShelf, 'bookShelf1', {x: this.centerMap.x + 1, y: this.centerMap.y + 1})
-        const bookShelf2Container = this.createObjectContainer(bookShelf, 'bookShelf2', {x: this.centerMap.x + 1, y: this.centerMap.y + 4})
-        const bookShelf3Container = this.createObjectContainer(bookShelf, 'bookShelf3', {x: this.centerMap.x + 4, y: this.centerMap.y + 1})
-        const bookShelf4Container = this.createObjectContainer(bookShelf, 'bookShelf4', {x: this.centerMap.x + 4, y: this.centerMap.y + 4})
-        const bookShelf5Container = this.createObjectContainer(bookShelf, 'bookShelf5', {x: this.centerMap.x + 11, y: this.centerMap.y + 1})
-        this.libraryContainer.addChild(bookShelf1Container, bookShelf2Container, bookShelf3Container, bookShelf4Container, bookShelf5Container)
+        const translates = [{x: 1, y: 1}, {x: 1, y: 4}, {x: 4, y: 1}, {x: 4, y: 4}, {x: 11, y: 1}];
+        translates.forEach((val, idx) => {
+            const bookShelfContainer = this.createObjectContainer(bookShelf, `bookShelf${idx}`, {x: this.centerMap.x + val.x, y: this.centerMap.y + val.y})    
+            this.libraryContainer.addChild(bookShelfContainer);
+        })
     }
 
     createObjectContainer(jsonObject, name, pos=this.centerMap) {
