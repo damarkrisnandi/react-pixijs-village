@@ -18,7 +18,8 @@ export default class LibraryScene extends Provider{
         const bookShelf2Container = this.createObjectContainer(bookShelf, 'bookShelf2', {x: this.centerMap.x + 1, y: this.centerMap.y + 4})
         const bookShelf3Container = this.createObjectContainer(bookShelf, 'bookShelf3', {x: this.centerMap.x + 4, y: this.centerMap.y + 1})
         const bookShelf4Container = this.createObjectContainer(bookShelf, 'bookShelf4', {x: this.centerMap.x + 4, y: this.centerMap.y + 4})
-        this.libraryContainer.addChild(bookShelf1Container, bookShelf2Container, bookShelf3Container, bookShelf4Container)
+        const bookShelf5Container = this.createObjectContainer(bookShelf, 'bookShelf5', {x: this.centerMap.x + 11, y: this.centerMap.y + 1})
+        this.libraryContainer.addChild(bookShelf1Container, bookShelf2Container, bookShelf3Container, bookShelf4Container, bookShelf5Container)
     }
 
     createObjectContainer(jsonObject, name, pos=this.centerMap) {
