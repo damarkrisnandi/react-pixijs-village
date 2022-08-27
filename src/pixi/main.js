@@ -26,34 +26,6 @@ export default class PixiMain extends Provider {
         this.player = playerData.player;
     }
 
-    characterMapping() {
-        const blockMapping = [];
-        for (let y = 0; y < this.villageMap.map.length; y++) {
-            for (let x = 0; x < this.villageMap.map[y].length; x++) {
-                const conditions = {
-                    "q": () => {blockMapping.push({x: 5, y: 2, nowx: x + 1, nowy: y + 1})},
-                    "qz": () => {blockMapping.push({x: 5, y: 3, nowx: x + 1, nowy: y + 1})},
-                    "z": () => {blockMapping.push({x: 5, y: 4, nowx: x + 1, nowy: y + 1})},
-                    "qe": () => {blockMapping.push({x: 6, y: 2, nowx: x + 1, nowy: y + 1})},
-                    "e": () => {blockMapping.push({x: 7, y: 2, nowx: x + 1, nowy: y + 1})},
-                    "ec": () => {blockMapping.push({x: 7, y: 3, nowx: x + 1, nowy: y + 1})},
-                    "zc": () => {blockMapping.push({x: 6, y: 4, nowx: x + 1, nowy: y + 1})},
-                    "c": () => {blockMapping.push({x: 7, y: 4, nowx: x + 1, nowy: y + 1})},
-                    ".": () => {blockMapping.push({x: 6, y: 3, nowx: x + 1, nowy: y + 1})},
-                    "#": () => {blockMapping.push({x: 2, y: 6, nowx: x + 1, nowy: y + 1})},
-                }
-
-                try {
-                    conditions[this.villageMap.map[y][x]]();    
-                } catch (error) {
-                    console.log(error);
-                }
-                
-            }
-        }
-        return blockMapping;
-    }
-
     checkAllCollision(dir, player, mapBlock) {
         let valid = true
         for (let container of mapBlock.children) {
@@ -65,45 +37,31 @@ export default class PixiMain extends Provider {
     collisionObjvsCont(aObj, bCont, dir) {
         const aBox = aObj.getBounds();
         const allBounds = bCont.children.map(spr => spr.getBounds());
-        // if (allBounds.find(data => data.x === aBox.x + (dir.x * this.unit) && data.y === aBox.y + (dir.y * this.unit))) {
-        //     console.log(allBounds.find(data => data.x === aBox.x + (dir.x * this.unit) && data.y === aBox.y + (dir.y * this.unit)))
+        
+        // for (let data of allBounds) {
+        //     if (boundL(data) < playerR && boundT(data) < playerB && 
+        //     boundR(data) > playerL && boundB(data) > playerT) {
+        //         return false
+        //     }
         // }
-        return allBounds.find(data => data.x === aBox.x + (dir.x * this.unit) && data.y === aBox.y + (dir.y * this.unit)) ? false : true;
+        return allBounds.find(data => this.isTwoSpritesOverlap(aBox, data, dir)) ? false : true
+
+        // return true;
+
     }
 
-    playerMovement(key) {
-        let move = {x: 0, y: 0};
-        const {UP, LEFT, RIGHT, DOWN} = new Controls();
-        switch (key) {
-            case UP:
-                this.player = this.animations.walkUp;
-                move = {x: 0, y: -1};
-                break;
+    isTwoSpritesOverlap(player, object, dir) {
+        let playerT = player.y + dir.y; 
+        let playerB = (player.y + this.unit) + dir.y; 
+        let playerL = player.x + dir.x; 
+        let playerR = (player.x + this.unit) + dir.x;
 
-            case LEFT:
-                this.player = this.animations.walkLeft
-                move = {x: -1, y: 0};
-                break;
+        let boundT = object.y; 
+        let boundB = object.y + this.unit; 
+        let boundL = object.x; 
+        let boundR = object.x + this.unit;
 
-            case DOWN:
-                this.player = this.animations.walkDown
-                move = {x: 0, y: 1};
-                break;
-            case RIGHT:
-                this.player = this.animations.walkRight
-                move = {x: 1, y: 0};
-                break;
-
-            default:
-                move = {x: 0, y: 0};
-                break;
-        }
-
-        if (this.checkAllCollision(move, this.player, this.villageMapBlock)) {
-            for (let i = 0; i < this.unit * 10000; i++) {
-                this.villageMapBlock.x -= (move.x) / (10000 * 2)
-                this.villageMapBlock.y -= (move.y) / (10000 * 2)
-            }   
-        }
+        // return true if overlap
+        return boundL < playerR && boundT < playerB && boundR > playerL && boundB > playerT
     }
 }

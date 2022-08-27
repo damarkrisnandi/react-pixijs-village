@@ -11,6 +11,7 @@ class Main extends React.Component {
     player = null
     animations = {};
     unit = 16;
+    speed = 2;
 
     key = 'stop';
     keys = {};
@@ -42,9 +43,15 @@ class Main extends React.Component {
 
     keyDown = (e) => {
         this.isTriggerKey = true;
+        const date = new Date();
         this.timeTrigger = new Date();
         const controls = new Controls();
         if (Object.values(controls).includes(e.key)) this.key = e.key;    
+        setTimeout(() => {
+            if (this.key !== 'stop') {
+                this.speed = 3;
+            }
+        }, 2000)
     }
 
     keyUp = (e) => {
@@ -95,9 +102,13 @@ class Main extends React.Component {
                 break;
         }
 
+        // multiply with speed
+        move.x  *= this.speed
+        move.y *= this.speed
+
         if (this.pixi.checkAllCollision(move, this.player, this.villageMapBlock)) {
-            this.villageMapBlock.x -= (move.x) * this.unit;
-            this.villageMapBlock.y -= (move.y) * this.unit;
+            this.villageMapBlock.x -= (move.x)
+            this.villageMapBlock.y -= (move.y)
         }
     }
 
@@ -114,6 +125,7 @@ class Main extends React.Component {
         this.initializeWorld();
         this.initializeMap();
         this.initializePlayer();
+        this.app.ticker.speed = 4;
         this.app.ticker.add(this.gameLoop)
     }
 
