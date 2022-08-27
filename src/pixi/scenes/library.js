@@ -1,5 +1,4 @@
 import { Container } from "pixi.js";
-import { blockBuilder } from "../block-builder";
 
 import room from '../json-objects/room.json'
 import bookShelf from '../json-objects/book-shelf.json'
@@ -23,6 +22,6 @@ export default class LibraryScene extends Provider{
     }
 
     actions() {
-        
+
     }
 }

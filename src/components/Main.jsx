@@ -43,7 +43,6 @@ class Main extends React.Component {
 
     keyDown = (e) => {
         this.isTriggerKey = true;
-        const date = new Date();
         this.timeTrigger = new Date();
         const controls = new Controls();
         if (Object.values(controls).includes(e.key)) this.key = e.key;    

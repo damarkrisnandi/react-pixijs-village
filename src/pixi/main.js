@@ -1,7 +1,6 @@
 import Provider from "./provider";
 import Player from "./player";
 import LibraryScene from "./scenes/library";
-import { Controls } from "./utils/model-control";
 
 
 export default class PixiMain extends Provider {
@@ -37,16 +36,8 @@ export default class PixiMain extends Provider {
     collisionObjvsCont(aObj, bCont, dir) {
         const aBox = aObj.getBounds();
         const allBounds = bCont.children.map(spr => spr.getBounds());
-        
-        // for (let data of allBounds) {
-        //     if (boundL(data) < playerR && boundT(data) < playerB && 
-        //     boundR(data) > playerL && boundB(data) > playerT) {
-        //         return false
-        //     }
-        // }
         return allBounds.find(data => this.isTwoSpritesOverlap(aBox, data, dir)) ? false : true
 
-        // return true;
 
     }
 
