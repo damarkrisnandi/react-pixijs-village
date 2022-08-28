@@ -1,6 +1,7 @@
 import Provider from "./provider";
 import Player from "./player";
 import LibraryScene from "./scenes/library";
+// import { Container } from "pixi.js";
 
 
 export default class PixiMain extends Provider {
@@ -25,20 +26,27 @@ export default class PixiMain extends Provider {
         this.player = playerData.player;
     }
 
-    checkAllCollision(dir, player, mapBlock) {
-        let valid = true
+    /**
+     * 
+     * @param {Object} dir direction / arah pergerakan player
+     * @param {Container} player 
+     * @param {Container} mapBlock 
+     * @returns jika true maka player menabrak collider
+     */
+    isPlayerCollideWithCollider(dir, player, mapBlock) {
+        let valid = false
         for (let container of mapBlock.children) {
-            valid = valid && this.collisionObjvsCont(player, container.children.find(d => d.name.startsWith('collider')), dir)
+            const aBox = player.getBounds();
+            const collider = container.children.find(d => d.name.startsWith('collider'));
+            const allBounds = collider.children.map(spr => spr.getBounds());
+            
+            const isCollide = allBounds.find(data => this.isTwoSpritesOverlap(aBox, data, dir)) ? true : false;
+
+            valid = valid || isCollide;
+
+            if (valid) break
         }
         return valid;
-    }
-
-    collisionObjvsCont(aObj, bCont, dir) {
-        const aBox = aObj.getBounds();
-        const allBounds = bCont.children.map(spr => spr.getBounds());
-        return allBounds.find(data => this.isTwoSpritesOverlap(aBox, data, dir)) ? false : true
-
-
     }
 
     isTwoSpritesOverlap(player, object, dir) {
@@ -54,5 +62,43 @@ export default class PixiMain extends Provider {
 
         // return true if overlap
         return boundL < playerR && boundT < playerB && boundR > playerL && boundB > playerT
+    }
+
+    getInfo(dir, player, mapBlock) {
+        let isGetInfo = false;
+        let spriteName = '';
+        for (let container of mapBlock.children) {
+            const aBox = player.getBounds();
+            const interact = container.children.find(d => d.name.startsWith('interact'));
+
+            if (!interact) {
+                continue
+            }
+
+            let isOverlap = false;
+            for (let sprite of interact.children) {
+                const bounds = sprite.getBounds();
+                const checkOverlap = this.isTwoSpritesOverlap(aBox, bounds, dir);
+                if (checkOverlap) {
+                    spriteName = interact.name;
+                    isOverlap = true;
+                    break;
+                }
+            }
+
+            isGetInfo = isGetInfo || isOverlap;
+
+            
+
+            if (isGetInfo) {
+                break;
+            }
+        }
+
+        if (isGetInfo) {
+            return `Ini adalah ${spriteName.split('-')[1]}`
+        } else {
+            return ''
+        }
     }
 }

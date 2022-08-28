@@ -2,5 +2,6 @@
     "name": "bookshelf",
     "src":"./pixi-assets/tileset_interior.png",
     "tiles": [{"x":6,"y":15,"nowx":1,"nowy":1},{"x":6,"y":16,"nowx":1,"nowy":2},{"x":7,"y":15,"nowx":2,"nowy":1},{"x":7,"y":16,"nowx":2,"nowy":2}],
-    "collider": [{"x":6,"y":15,"nowx":1,"nowy":1},{"x":7,"y":15,"nowx":2,"nowy":1}]
+    "collider": [{"x":6,"y":15,"nowx":1,"nowy":1},{"x":7,"y":15,"nowx":2,"nowy":1}],
+    "interactZone": [{"x":6,"y":16,"nowx":1,"nowy":2},{"x":7,"y":16,"nowx":2,"nowy":2}]
 }

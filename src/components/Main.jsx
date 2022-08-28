@@ -2,6 +2,7 @@ import React from "react";
 import PixiMain from "../pixi/main";
 import Player from "../pixi/player";
 import { Controls } from "../pixi/utils/model-control";
+import Toast from "./Toast";
 
 class Main extends React.Component {
     pixi = new PixiMain()
@@ -17,6 +18,14 @@ class Main extends React.Component {
     keys = {};
 
     clickPos = {x: 0, y: 0}
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            info: '',
+            alert: false
+        }
+    }
 
     initializeWorld = () => {
         this.pixi.createWorld();
@@ -46,11 +55,11 @@ class Main extends React.Component {
         this.timeTrigger = new Date();
         const controls = new Controls();
         if (Object.values(controls).includes(e.key)) this.key = e.key;    
-        setTimeout(() => {
-            if (this.key !== 'stop') {
-                this.speed = 3;
-            }
-        }, 2000)
+        // setTimeout(() => {
+        //     if (this.key !== 'stop') {
+        //         this.speed = 3;
+        //     }
+        // }, 2000)
     }
 
     keyUp = (e) => {
@@ -69,7 +78,7 @@ class Main extends React.Component {
     }
 
     gameLoop = (delta) => {
-        this.playerMovement();
+        this.playerMovement();   
         this.updateCanvas();
     }
 
@@ -102,13 +111,17 @@ class Main extends React.Component {
         }
 
         // multiply with speed
-        move.x  *= this.speed
+        move.x *= this.speed
         move.y *= this.speed
 
-        if (this.pixi.checkAllCollision(move, this.player, this.villageMapBlock)) {
+        if (!this.pixi.isPlayerCollideWithCollider(move, this.player, this.villageMapBlock)) {
             this.villageMapBlock.x -= (move.x)
             this.villageMapBlock.y -= (move.y)
+
+            this.setState({info: this.pixi.getInfo(move, this.player, this.villageMapBlock), alert: true})
         }
+
+        
     }
 
 
@@ -129,7 +142,11 @@ class Main extends React.Component {
     }
 
     render() { 
-        return ( <div></div> );
+        return ( <div>
+            {/* <div className="fixed top-1 left-auto text-white z-50">{this.state.info}</div> */}
+            
+            {this.state.alert && this.state.info !== '' ? (<Toast message={this.state.info} isAlert={this.state.alert} setShow={val => {if (!val) {this.setState({alert: false})}}}/>) : null}
+            </div> );
     }
 }
  

@@ -21,7 +21,10 @@ export default class LibraryScene extends Provider{
         })
     }
 
-    actions() {
+    getActions() {
+        return [
+            {position: {x: this.centerMap.x + 2, y: this.centerMap.y + 5}, type: 'INFO', message: 'Test message'}
+        ]
 
     }
 }
