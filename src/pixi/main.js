@@ -67,6 +67,7 @@ export default class PixiMain extends Provider {
     getInfo(dir, player, mapBlock) {
         let isGetInfo = false;
         let spriteName = '';
+        let message = null;
         for (let container of mapBlock.children) {
             const aBox = player.getBounds();
             const interact = container.children.find(d => d.name.startsWith('interact'));
@@ -81,6 +82,8 @@ export default class PixiMain extends Provider {
                 const checkOverlap = this.isTwoSpritesOverlap(aBox, bounds, dir);
                 if (checkOverlap) {
                     spriteName = interact.name;
+                    message = interact.message;
+                    console.log(interact)
                     isOverlap = true;
                     break;
                 }
@@ -96,7 +99,7 @@ export default class PixiMain extends Provider {
         }
 
         if (isGetInfo) {
-            return `Ini adalah ${spriteName.split('-')[1]}`
+            return message || `Ini adalah ${spriteName.split('-')[1]}`
         } else {
             return ''
         }

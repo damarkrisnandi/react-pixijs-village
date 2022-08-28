@@ -1,7 +1,7 @@
 import { Container } from "pixi.js";
 import { blockBuilder } from "../block-builder";
 
-export function createObjectWithCollider(jsonObject, name, unit, pos) {
+export function createObjectWithCollider(jsonObject, name, unit, pos, action, message) {
     const object = blockBuilder(jsonObject.src, unit, jsonObject.tiles, pos);
     const objectCollider = blockBuilder(jsonObject.src, unit, jsonObject.collider, pos);
     const objectInteractZone = blockBuilder(jsonObject.src, unit, jsonObject.interactZone, pos);
@@ -9,7 +9,7 @@ export function createObjectWithCollider(jsonObject, name, unit, pos) {
     object.children.map(data => { return {...data, name}})
     objectCollider.name = `collider-${name}`
     objectInteractZone.name = `interact-${name}`
-    objectInteractZone.children.map(data => { return {...data, name}})
+    objectInteractZone.children.map(data => { return {...data, name, action, message}})
 
     const container = new Container();
     
