@@ -18,8 +18,10 @@ export default class LibraryScene extends Provider{
         translates.forEach((val, idx) => {
             let message = null;
             let action = null;
-            message = 'Rak ini berisi buku Sains dan Matematika';
-            action = 'info';
+            if (idx === 1) {
+                message = 'Koleksi buku Sains dan Matematika';
+                action = 'info';
+            }
             const bookShelfContainer = createObjectWithCollider(bookShelf, `bookShelf${idx}`, this.unit, {x: this.centerMap.x + val.x, y: this.centerMap.y + val.y}, action, message)    
             this.libraryContainer.addChild(bookShelfContainer);
         })

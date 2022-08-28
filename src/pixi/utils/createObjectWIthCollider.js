@@ -9,7 +9,8 @@ export function createObjectWithCollider(jsonObject, name, unit, pos, action, me
     object.children.map(data => { return {...data, name}})
     objectCollider.name = `collider-${name}`
     objectInteractZone.name = `interact-${name}`
-    objectInteractZone.children.map(data => { return {...data, name, action, message}})
+    objectInteractZone.action = action; 
+    objectInteractZone.message = message
 
     const container = new Container();
     
