@@ -83,7 +83,6 @@ export default class PixiMain extends Provider {
                 if (checkOverlap) {
                     spriteName = interact.name;
                     message = interact.message;
-                    console.log(interact)
                     isOverlap = true;
                     break;
                 }
