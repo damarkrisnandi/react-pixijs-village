@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import * as PIXI from 'pixi.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+window.PIXI = PIXI;
 root.render(
   <React.StrictMode>
     <App />
