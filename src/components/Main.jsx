@@ -19,6 +19,8 @@ class Main extends React.Component {
 
     clickPos = {x: 0, y: 0}
 
+    stepSound = null;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -43,6 +45,7 @@ class Main extends React.Component {
         this.playerData.init();
         this.player = this.playerData.player
         this.animations = this.playerData.animations
+        this.stepSound = this.playerData.stepSound();
         this.app.stage.addChild(this.player)
         window.addEventListener('keydown', this.keyDown);
         window.addEventListener('keyup', this.keyUp)
@@ -127,6 +130,7 @@ class Main extends React.Component {
 
     updateCanvas = () => {
         // update setiap ada perubahan dalam game
+        (this.key !== 'stop') ? this.stepSound.play() : this.stepSound.pause();
         (this.key !== 'stop') ? this.player.play() : this.player.stop()
         this.app.stage.addChild(this.villageMapBlock);
         this.app.stage.addChild(this.player);

@@ -1,6 +1,7 @@
 import Provider from "./provider";
 import { blockBuilderAnimate } from "./block-builder";
 import { FramesCollections } from "./utils/frames-collections";
+import { Howl } from 'howler';
 
 export default class Player extends Provider {
 
@@ -24,6 +25,15 @@ export default class Player extends Provider {
         this.player = this.animations.standDown;
     }
 
+    stepSound() {
+        return new Howl({
+            src: ['./pixi-assets/step.wav'],
+            autoplay: true,
+            loop: true,
+            volume: 0.08,
+            rate: 0.5
+          });
+    }
     
 
 }
