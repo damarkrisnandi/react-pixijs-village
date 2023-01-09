@@ -28,7 +28,7 @@ export default class Player extends Provider {
     stepSound() {
         return new Howl({
             src: ['./pixi-assets/step.wav'],
-            autoplay: true,
+            // autoplay: true,
             loop: true,
             volume: 0.08,
             rate: 0.5
