@@ -1,29 +1,39 @@
-import { Container } from "pixi.js";
+import { CustomContainer } from "./custom-container";
 import { blockBuilder } from "../block-builder";
 
 export function createObjectWithCollider(jsonObject, name, unit, pos, action, message) {
     // separate tiles category for better performance
     const { tilesOrigin, tilesInteract, tilesCollider } = separateTilesCategory(jsonObject);
 
-    const object = blockBuilder(jsonObject.src, unit, tilesOrigin, pos);
-    const objectCollider = blockBuilder(jsonObject.src, unit, tilesCollider, pos);
-    const objectInteractZone = blockBuilder(jsonObject.src, unit, tilesInteract, pos);
-    
-    object.name = name
-    object.children.map(data => { return {...data, name}})
-    objectCollider.name = `collider-${name}`
-    objectInteractZone.name = `interact-${name}`
-    objectInteractZone.action = action; 
-    objectInteractZone.message = message
+    const container = new CustomContainer();
 
-    const container = new Container();
-    
-    container.addChild(object);
-    container.addChild(objectCollider);
-    container.addChild(objectInteractZone);
+    if (tilesOrigin.length > 0) {
+        const object = blockBuilder(jsonObject.src, unit, tilesOrigin, pos);
+        object.name = `origin-${name}`
+        object.children.map(data => { return {...data, name}})
+        
+        container.addChild(object);
+    }
+
+    if (tilesCollider.length > 0) {
+        const objectCollider = blockBuilder(jsonObject.src, unit, tilesCollider, pos);
+        objectCollider.name = `collider-${name}`
+        
+        container.addChild(objectCollider);
+    }
+
+    if (tilesInteract.length > 0) {
+        const objectInteractZone = blockBuilder(jsonObject.src, unit, tilesInteract, pos);
+        objectInteractZone.name = `interact-${name}`
+        objectInteractZone.action = action; 
+        objectInteractZone.message = message;
+
+        container.addChild(objectInteractZone);
+    }
 
     container.scale.x = 1;
     container.scale.y = 1;
+    container.name = name;
 
     return container;
 }

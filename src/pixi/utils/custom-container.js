@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-export class NamedContainer extends PIXI.Container {
+export class CustomContainer extends PIXI.Container {
     name;
     action;
     message;

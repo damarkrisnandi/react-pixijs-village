@@ -22,6 +22,14 @@ export default class Player extends Provider {
             standUp: blockBuilderAnimate(this.url2, this.unit, this.framesCollections.standUpFrames, this.center, speed),
             walkUp: blockBuilderAnimate(this.url2, this.unit, this.framesCollections.walkUpFrames, this.center, speed),
         }
+        const keys = Object.keys(this.animations);
+        // set all name
+        for (let key of keys) {
+            this.animations[key].name = key;
+        }
+
+        console.log(this.animations);
+
         this.player = this.animations.standDown;
     }
 
