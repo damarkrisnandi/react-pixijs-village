@@ -17,16 +17,16 @@ export function blockBuilder(url, unit, source, destination) {
         container.addChild(spr1);
 
         // stack
-        if (position.stack) {
-            for (let child of position.children) {
-                const rect1Child = new PIXI.Rectangle((child.x - 1) * unit, (child.y - 1) * unit, unit, unit)
-                const texture1Child = new PIXI.Texture(baseTexture, rect1Child);
-                const spr1Child = new NamedSprite(texture1Child);
-                spr1Child.x = (destination.x + child.nowx - 2) * unit;
-                spr1Child.y = (destination.y + child.nowy - 2) * unit;
-                container.addChild(spr1Child);
-            }
-        }
+        // if (position.stack) {
+        //     for (let child of position.children) {
+        //         const rect1Child = new PIXI.Rectangle((child.x - 1) * unit, (child.y - 1) * unit, unit, unit)
+        //         const texture1Child = new PIXI.Texture(baseTexture, rect1Child);
+        //         const spr1Child = new NamedSprite(texture1Child);
+        //         spr1Child.x = (destination.x + child.nowx - 2) * unit;
+        //         spr1Child.y = (destination.y + child.nowy - 2) * unit;
+        //         container.addChild(spr1Child);
+        //     }
+        // }
         
     }
 
@@ -51,6 +51,9 @@ export function blockBuilderAnimate(url, unit, source, destination, speed) {
     animBlock.loop = true;
     animBlock.x = (destination.x - 1) * unit;
     animBlock.y = (destination.y - 1) * unit;
+
+    animBlock.scale.x = 1;
+    animBlock.scale.y = 1;
 
     return animBlock;
 }
